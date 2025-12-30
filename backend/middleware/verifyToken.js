@@ -1,3 +1,4 @@
+import { log } from 'console';
 import jwt from 'jsonwebtoken';
 
 
@@ -6,7 +7,8 @@ export const verifyToken = (req, res, next) => {
     if (!token) return res.status(401).json({ success: false, message: "Access Denied" });
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);console.log(decoded);
+        
         if (!decoded) return res.status(400).json({ success: false, message: "Invalid Token"});
         req.userId = decoded.userId;
         next();
